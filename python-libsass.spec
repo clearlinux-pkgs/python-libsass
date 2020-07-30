@@ -4,13 +4,14 @@
 #
 Name     : python-libsass
 Version  : 0.20.0
-Release  : 1
+Release  : 2
 URL      : https://files.pythonhosted.org/packages/1a/12/90961539dec2eb3e0708e33585f89495c65814636bf32d44c7a829e4ef48/libsass-0.20.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/1a/12/90961539dec2eb3e0708e33585f89495c65814636bf32d44c7a829e4ef48/libsass-0.20.0.tar.gz
 Summary  : Sass for Python: A straightforward binding of libsass for Python.
 Group    : Development/Tools
 License  : MIT
 Requires: python-libsass-bin = %{version}-%{release}
+Requires: python-libsass-license = %{version}-%{release}
 Requires: python-libsass-python = %{version}-%{release}
 Requires: python-libsass-python3 = %{version}-%{release}
 Requires: six
@@ -23,9 +24,18 @@ BuildRequires : six
 %package bin
 Summary: bin components for the python-libsass package.
 Group: Binaries
+Requires: python-libsass-license = %{version}-%{release}
 
 %description bin
 bin components for the python-libsass package.
+
+
+%package license
+Summary: license components for the python-libsass package.
+Group: Default
+
+%description license
+license components for the python-libsass package.
 
 
 %package python
@@ -57,7 +67,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1596133093
+export SOURCE_DATE_EPOCH=1596133876
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -72,6 +82,8 @@ python3 setup.py build
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/python-libsass
+cp %{_builddir}/libsass-0.20.0/LICENSE %{buildroot}/usr/share/package-licenses/python-libsass/f808e63518e21c38c4e7b380baeec7e0c8859070
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -84,6 +96,10 @@ echo ----[ mark ]----
 %defattr(-,root,root,-)
 /usr/bin/pysassc
 /usr/bin/sassc
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/python-libsass/f808e63518e21c38c4e7b380baeec7e0c8859070
 
 %files python
 %defattr(-,root,root,-)
