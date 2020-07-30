@@ -4,7 +4,7 @@
 #
 Name     : python-libsass
 Version  : 0.20.0
-Release  : 2
+Release  : 3
 URL      : https://files.pythonhosted.org/packages/1a/12/90961539dec2eb3e0708e33585f89495c65814636bf32d44c7a829e4ef48/libsass-0.20.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/1a/12/90961539dec2eb3e0708e33585f89495c65814636bf32d44c7a829e4ef48/libsass-0.20.0.tar.gz
 Summary  : Sass for Python: A straightforward binding of libsass for Python.
@@ -16,6 +16,7 @@ Requires: python-libsass-python = %{version}-%{release}
 Requires: python-libsass-python3 = %{version}-%{release}
 Requires: six
 BuildRequires : buildreq-distutils3
+BuildRequires : libsass-dev
 BuildRequires : six
 
 %description
@@ -67,7 +68,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1596133876
+export SOURCE_DATE_EPOCH=1596136384
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -88,6 +89,8 @@ python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
+## Remove excluded files
+rm -f %{buildroot}/usr/bin/sassc
 
 %files
 %defattr(-,root,root,-)
@@ -95,7 +98,6 @@ echo ----[ mark ]----
 %files bin
 %defattr(-,root,root,-)
 /usr/bin/pysassc
-/usr/bin/sassc
 
 %files license
 %defattr(0644,root,root,0755)
