@@ -4,7 +4,7 @@
 #
 Name     : python-libsass
 Version  : 0.20.0
-Release  : 3
+Release  : 4
 URL      : https://files.pythonhosted.org/packages/1a/12/90961539dec2eb3e0708e33585f89495c65814636bf32d44c7a829e4ef48/libsass-0.20.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/1a/12/90961539dec2eb3e0708e33585f89495c65814636bf32d44c7a829e4ef48/libsass-0.20.0.tar.gz
 Summary  : Sass for Python: A straightforward binding of libsass for Python.
